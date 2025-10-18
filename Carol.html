@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pra Você, Meu Amor, Maria Carolina 💖</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      position: relative;
+      height: 100vh;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    /* Fundo com foto e gradiente */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(rgba(255, 230, 240, 0.7), rgba(215, 225, 255, 0.7)),
+        url("foto.jpg"); /* Coloque o link da sua foto aqui */
+      background-size: cover;
+      background-position: center;
+      filter: blur(8px) brightness(1.1);
+      z-index: -2;
+      animation: fadeBG 20s ease-in-out infinite alternate;
+    }
+
+    /* Leve animação de brilho */
+    @keyframes fadeBG {
+      from { filter: blur(8px) brightness(1.0); }
+      to { filter: blur(8px) brightness(1.3); }
+    }
+
+    h1 {
+      font-size: 2.5em;
+      color: #4a4a4a;
+      animation: fadeIn 2s ease forwards;
+      text-shadow: 0 0 10px rgba(255,255,255,0.8);
+    }
+
+    p {
+      font-size: 1.2em;
+      margin: 20px;
+      opacity: 0;
+      transition: opacity 1s ease;
+      min-height: 1.5em;
+      color: #333;
+      text-shadow: 0 0 8px rgba(255,255,255,0.8);
+    }
+
+    button {
+      margin-top: 30px;
+      background: #ff8fab;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1em;
+      border-radius: 30px;
+      cursor: pointer;
+      opacity: 0;
+      transition: background 0.3s, opacity 1s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    button:hover {
+      background: #ff648c;
+    }
+
+    #hugBtn {
+      background: #b49eff;
+      margin-top: 15px;
+    }
+
+    #hugBtn:hover {
+      background: #8d6bff;
+    }
+
+    #hugMessage {
+      font-size: 1.3em;
+      margin-top: 25px;
+      color: #444;
+      opacity: 0;
+      transition: opacity 1.5s ease;
+      text-shadow: 0 0 10px rgba(255,255,255,0.9);
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .hearts {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .hearts span {
+      position: absolute;
+      display: block;
+      width: 20px;
+      height: 20px;
+      background: rgba(255, 192, 203, 0.7);
+      animation: floatHearts 10s linear infinite;
+      bottom: -50px;
+      border-radius: 50%;
+    }
+
+    @keyframes floatHearts {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-110vh) scale(0.6);
+        opacity: 0;
+      }
+    }
+
+    @keyframes shine {
+      0% { filter: brightness(1); }
+      50% { filter: brightness(1.5); }
+      100% { filter: brightness(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Música de fundo -->
+  <audio autoplay loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/09/audio_96b5f4f8a1.mp3?filename=romantic-piano-112199.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="hearts"></div>
+
+  <h1>Oi, Meu Amor 💗</h1>
+  <p id="line1"></p>
+  <p id="line2"></p>
+  <p id="line3"></p>
+  <p id="line4"></p>
+
+  <button id="finalBtn" onclick="finalMessage()">Clique aqui 💌</button>
+  <button id="hugBtn" onclick="sendHug()">Receber um abraço 🤗</button>
+
+  <div id="hugMessage">Considere-se abraçada, meu amor 💞</div>
+
+  <script>
+    const lines = [
+      "Eu sei que nem todos os dias são fáceis...",
+      "Mas quero que você lembre que é forte, linda e tem um coração enorme.",
+      "Mesmo quando o mundo pesa, há alguém que acredita em você — de verdade.",
+      "Esse alguém sou eu, e estou aqui pra te lembrar: você nunca está sozinha. 💖"
+    ];
+
+    const elements = [
+      document.getElementById('line1'),
+      document.getElementById('line2'),
+      document.getElementById('line3'),
+      document.getElementById('line4')
+    ];
+
+    const hugMessage = document.getElementById('hugMessage');
+    const hugBtn = document.getElementById('hugBtn');
+
+    let lineIndex = 0;
+    let charIndex = 0;
+
+    function typeLine() {
+      if (lineIndex < lines.length) {
+        const line = lines[lineIndex];
+        elements[lineIndex].style.opacity = 1;
+        elements[lineIndex].textContent = line.substring(0, charIndex + 1);
+        charIndex++;
+
+        if (charIndex < line.length) {
+          setTimeout(typeLine, 50);
+        } else {
+          lineIndex++;
+          charIndex = 0;
+          setTimeout(typeLine, 1000);
+        }
+      } else {
+        document.getElementById('finalBtn').style.opacity = 1;
+        hugBtn.style.opacity = 1;
+      }
+    }
+
+    function finalMessage() {
+      alert("Com todo amor do mundo 💕\nVocê é a melhor parte dos meus dias, Meu Amor.");
+    }
+
+    function sendHug() {
+      hugMessage.style.opacity = 1;
+      document.body.style.animation = 'shine 1.5s ease';
+      setTimeout(() => {
+        document.body.style.animation = '';
+      }, 1500);
+    }
+
+    // inicia a digitação
+    setTimeout(typeLine, 1500);
+
+    // cria corações flutuantes
+    const heartsContainer = document.querySelector('.hearts');
+    for (let i = 0; i < 25; i++) {
+      const heart = document.createElement('span');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (5 + Math.random() * 5) + 's';
+      heartsContainer.appendChild(heart);
+    }
+  </script>
+
+</body>
+</html>
